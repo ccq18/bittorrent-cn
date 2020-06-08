@@ -15,7 +15,7 @@ for path, dir_list, file_list in g:
 flist.sort()
 for file_name in flist:
     name = file_name[:-3].strip()
-    content += '[%s](https://github.com/ccq18/bittorrent-cn/%s)  \n' % (name, file_name)
+    content += '[%s](https://github.com/ccq18/bittorrent-cn/blob/master/%s)  \n' % (name, file_name)
 
 
 f = open('./readme.md', 'w')
