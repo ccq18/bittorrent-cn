@@ -44,55 +44,63 @@ BEP 5 [[1]](http://www.bittorrent.org/beps/bep_0044.html#bep-5)定义的DHT �
 
 请求：
 
+
+```
 {
-    “一个”：
+    "a":
     {
-        “ id”：_<20个发送节点的字节ID（字符串）>_，
-        “令牌”：_<write-token（string）>_，
-        “ v”：_<任何编码类型，其编码大小<= 1000>_
-    }，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ q”，
-    “ q”：“放置”
+        "id": <20 byte id of sending node (string)>,
+        "token": <write-token (string)>,
+        "v": <any bencoded type, whose encoded size <= 1000>
+    },
+    "t": <transaction-id (string)>,
+    "y": "q",
+    "q": "put"
 }
+```
 
 响应：
 
+```
 {
-    “ r”：{“ id”：_<发送节点的20个字节的ID（字符串）>_ }，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ r”，
+    "r": { "id": <20 byte id of sending node (string)> },
+    "t": <transaction-id (string)>,
+    "y": "r",
 }
+```
 
 ### 得到消息
 
 请求：
 
+```
 {
-    “一个”：
+    "a":
     {
-        “ id”：_<20个发送节点的字节ID（字符串）>_，
-        “ target”：_<SHA-1项（字符串）的哈希值>_，
-    }，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ q”，
-    “ q”：“获取”
+        "id": <20 byte id of sending node (string)>,
+        "target": <SHA-1 hash of item (string)>,
+    },
+    "t": <transaction-id (string)>,
+    "y": "q",
+    "q": "get"
 }
-
+```
 响应：
 
+```
 {
-    “ r”：
+    "r":
     {
-        “ id”：_<20个发送节点的字节ID（字符串）>_，
-        “令牌”：_<write token（string）>_，
-        “V”：_<任何B编码类型，其SHA-1散列匹配'目标'>_ ，
-        “ nodes”：_<靠近'target'的IPv4节点>_，
-        “ nodes6”：_<靠近'target'的IPv6节点>_
-    }，
-    “ t”：_<transaction-id>_，
-    “ y”：“ r”，
+        "id": <20 byte id of sending node (string)>,
+        "token": <write token (string)>,
+        "v": <any bencoded type whose SHA-1 hash matches 'target'>,
+        "nodes": <IPv4 nodes close to 'target'>,
+        "nodes6": <IPv6 nodes close to 'target'>
+    },
+    "t": <transaction-id>,
+    "y": "r",
 }
+```
 
 ## 可变物品
 
@@ -114,22 +122,24 @@ BEP 5 [[1]](http://www.bittorrent.org/beps/bep_0044.html#bep-5)定义的DHT �
 
 请求：
 
+```
 {
-    “一个”：
+    "a":
     {
-        “ cas”：_<可选的预期seq-nr（int）>_，
-        “ id”：_<20个发送节点的字节ID（字符串）>_，
-        “ k”：_<ed25519公钥（32字节字符串）>_，
-        “ salt”：_<在散列（字符串）时添加到“ k”的可选盐>_ 
-        “ seq”：_<单调递增的序列号（整数）>_，
-        “ sig”：_<ed25519签名（64字节字符串）>_，
-        “令牌”：_<write-token（string）>_，
-        “ v”：_<任何编码的类型，其编码大小<1000>_
-    }，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ q”，
-    “ q”：“放置”
+        "cas": <optional expected seq-nr (int)>,
+        "id": <20 byte id of sending node (string)>,
+        "k": <ed25519 public key (32 bytes string)>,
+        "salt": <optional salt to be appended to "k" when hashing (string)>
+        "seq": <monotonically increasing sequence number (integer)>,
+        "sig": <ed25519 signature (64 bytes string)>,
+        "token": <write-token (string)>,
+        "v": <any bencoded type, whose encoded size < 1000>
+    },
+    "t": <transaction-id (string)>,
+    "y": "q",
+    "q": "put"
 }
+```
 
 存储节点接收到的<tt class="docutils literal">seq</tt>小于或等于节点上已存储的<tt class="docutils literal">放置</tt>请求的节点，必须拒绝该请求。如果序列号相等，并且值也相同，则节点应该重置其超时计数器。
 
@@ -161,11 +171,13 @@ CAS是_比较和交换的_缩写，它的语义与CAS CPU指令相似。当多�
 
 响应：
 
+```
 {
-    “ r”：{“ id”：_<发送节点的20个字节的ID（字符串）>_ }，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ r”，
+    "r": { "id": <20 byte id of sending node (string)> },
+    "t": <transaction-id (string)>,
+    "y": "r",
 }
+```
 
 ### 失误
 
@@ -173,15 +185,16 @@ CAS是_比较和交换的_缩写，它的语义与CAS CPU指令相似。当多�
 
 错误消息（由BEP 5 [[1]](http://www.bittorrent.org/beps/bep_0044.html#bep-5)指定）如下所示：
 
+```
 {
-    “ e”：[ _<错误代码（整数）>_，_<错误字符串（字符串）>_ ]，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ e”，
+    "e": [ <error-code (integer)>, <error-string (string)> ],
+    "t": <transaction-id (string)>,
+    "y": "e",
 }
+```
 
 除了BEP 5中定义的错误代码外，本规范还定义了一些其他错误代码。
 
-<colgroup><col width="29%"><col width="71%"></colgroup>
 | 错误代码 | 描述 |
 | --- | --- |
 | 205 | 讯息（<tt class="docutils literal">v</tt>栏位）太大。 |
@@ -196,37 +209,41 @@ CAS是_比较和交换的_缩写，它的语义与CAS CPU指令相似。当多�
 
 请求：
 
+```
 {
-    “一个”：
+    "a":
     {
-        “ id”：_<20个发送节点的字节ID（字符串）>_，
-        “ seq”：_<可选序列号（整数）>_，
-        “目标：” _<公钥和盐（字符串）的20字节SHA-1哈希>_
-    }，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ q”，
-    “ q”：“获取”
+        "id": <20 byte id of sending node (string)>,
+        "seq": <optional sequence number (integer)>,
+        "target:" <20 byte SHA-1 hash of public key and salt (string)>
+    },
+    "t": <transaction-id (string)>,
+    "y": "q",
+    "q": "get"
 }
+```
 
 可选的<tt class="docutils literal">seq</tt>字段指定仅当项目的序列号大于给定值时，才发送该项目的值。如果存在已存储的项目，但是其序列号小于或等于<tt class="docutils literal">seq</tt>字段，则应从响应中省略<tt class="docutils literal">k</tt>，<tt class="docutils literal">v</tt>和<tt class="docutils literal">sig</tt>字段。
 
 响应：
 
+```
 {
-    “ r”：
+    "r":
     {
-        “ id”：_<20个发送节点的字节ID（字符串）>_，
-        “ k”：_<ed25519公钥（32字节字符串）>_，
-        “ nodes”：_<靠近'target'的IPv4节点>_，
-        “ nodes6”：_<靠近'target'的IPv6节点>_，
-        “ seq”：_<单调递增的序列号（整数）>_，
-        “ sig”：_<ed25519签名（64字节字符串）>_，
-        “令牌”：_<write-token（string）>_，
-        “ v”：_<任何编码类型，其编码大小<= 1000>_
-    }，
-    “ t”：_<transaction-id（字符串）>_，
-    “ y”：“ r”，
+        "id": <20 byte id of sending node (string)>,
+        "k": <ed25519 public key (32 bytes string)>,
+        "nodes": <IPv4 nodes close to 'target'>,
+        "nodes6": <IPv6 nodes close to 'target'>,
+        "seq": <monotonically increasing sequence number (integer)>,
+        "sig": <ed25519 signature (64 bytes string)>,
+        "token": <write-token (string)>,
+        "v": <any bencoded type, whose encoded size <= 1000>
+    },
+    "t": <transaction-id (string)>,
+    "y": "r",
 }
+```
 
 ## 签名验证
 
@@ -262,17 +279,18 @@ CAS是_比较和交换的_缩写，它的语义与CAS CPU指令相似。当多�
 
 值：
 
-12：世界你好！
+12:Hello World!
 
 缓冲区被签名：
 
-3：seqi1e1：v12：世界您好！
+3:seqi1e1:v12:Hello World!
 
 公钥：
 
 77ff84905a91936367c01360803104f92432fcd904a43511876df5cdf3e7e548
 
 私钥：
+
 
 e06d3183d14159228433ed599221b80bd0a5ce8352e4bdf0262f76786ef1c74d
 b7e7a9fea2c0eb269d61e3b38e450a22e754941ac78479d6c54e1faf6037881d
@@ -290,15 +308,15 @@ b7e7a9fea2c0eb269d61e3b38e450a22e754941ac78479d6c54e1faf6037881d
 
 值：
 
-12：世界你好！
+12:Hello World!
 
-盐：
+salt：
 
-foob​​ar
+foobar
 
 缓冲区被签名：
 
-4：salt6：foobar3：seqi1e1：v12：Hello World！
+4:salt6:foobar3:seqi1e1:v12:Hello World!
 
 公钥：
 
@@ -322,7 +340,7 @@ df9a8a7104b1258f30bed3787e6cb896fca78c58f8e03b5f18f14951a87d9a08
 
 值：
 
-12：世界你好！
+12:Hello World!
 
 **目标ID**：
 
@@ -334,6 +352,6 @@ e5f96f6f38320f0f33959cb4d3d656452117aadb
 
 实现ed25519 DSA的库：
 
-*   [氯化钠](http://nacl.cr.yp.to/)
-*   [钠](https://github.com/jedisct1/libsodium)
-*   [夜莺的ed25519](https://github.com/nightcracker/ed25519)
+*   [NaCl](http://nacl.cr.yp.to/)
+*   [libsodium](https://github.com/jedisct1/libsodium)
+*   [nightcracker's ed25519](https://github.com/nightcracker/ed25519)

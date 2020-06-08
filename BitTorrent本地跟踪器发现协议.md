@@ -99,47 +99,52 @@ _bittorrent-tracker._tcp.pacbell.net。600 IN SRV 5 0 6969跟踪器
 
 在Python中，可以使用PyDNS使用以下代码获取本地跟踪器的端口和域：
 
-导入DNS
+```python
+import DNS
 
-tlds = [“ com”，“ net”，“ org”]＃在此处添加更多TLD。
+tlds = ["com", "net", "org"]  # add more TLDs here.
 
-名称= DNS.revlookup（“ 69.107.0.14”）
-名称= name.split（'。'）
-名称和名称[0]不在tlds中：
-   名称=“ _bittorrent-tracker._tcp。” +“。”。join（名称）
-   req = DNS.Request（name = name，qtype =“ SRV”，protocol =“ udp”）
-   响应= req.req（）
-   如果response.answers：
-      打破
-   删除名称[0]
+name = DNS.revlookup( "69.107.0.14" )
+names = name.split('.')
+while names and names[0] not in tlds:
+   name = "_bittorrent-tracker._tcp." + ".".join(names)
+   req = DNS.Request( name=name, qtype="SRV", protocol="udp")
+   response = req.req()
+   if response.answers:
+      break
+   del names[0]
 
-打印“ response =”，response.show（）
+print "response=", response.show()
+```
 
 这可能会产生类似的输出
 
-响应=; << >> PDG.py 1.0 << >> _bittorrent._tcp.pacbell.net SRV
-;; 选项：重复
-;; 得到了答案：
-;; ->> HEADER <<-操作码0，状态为NOERROR，ID为0
-;; 标志：qr aa rd ra; Ques：1，Ans：1，Auth：2，Addit：3
-;; 问题：
-;; _bittorrent-tracker._tcp.pacbell.net，类型= SRV，类别= IN
+```
+response= ; <<>> PDG.py 1.0 <<>> _bittorrent._tcp.pacbell.net SRV
+;; options: recurs
+;; got answer:
+;; ->>HEADER<<- opcode 0, status NOERROR, id 0
+;; flags: qr aa rd ra; Ques: 1, Ans: 1, Auth: 2, Addit: 3
+;; QUESTIONS:
+;;      _bittorrent-tracker._tcp.pacbell.net, type = SRV, class = IN
 
-;; 答案：
-_bittorrent-tracker._tcp.pacbell.net 600 SRV（5，0，6969，'cache.pacbell.net'）
+;; ANSWERS:
+_bittorrent-tracker._tcp.pacbell.net    600    SRV     (5, 0, 6969, 'cache.pacbell.net')
 
-;; 权限记录：
-pacbell.net 86400 NS ns1.pbi.net
-pacbell.net 86400 NS ns2.pbi.net
+;; AUTHORITY RECORDS:
+pacbell.net             86400   NS      ns1.pbi.net
+pacbell.net             86400   NS      ns2.pbi.net
 
-;; 其他记录：
-cache.pacbell.net 86400 A 69.107.0.1
-ns1.pacbell.net 86400 A 206.13.28.11
-ns2.pacbell.net 86400 A 206.13.29.11
+;; ADDITIONAL RECORDS:
+cache.pacbell.net       86400   A       69.107.0.1
+ns1.pacbell.net         86400   A       206.13.28.11
+ns2.pacbell.net         86400   A       206.13.29.11
 
-;; 总查询时间：0毫秒
-;; 到服务器：localhost
-;; 时间：2008年5月19日星期一16:00:12
+;; Total query time: 0 msec
+;; To SERVER: localhost
+;; WHEN: Mon May 19 16:00:12 2008
+
+```
 
 上面的答案是虚构的，因为AT＆T目前不为BitTorrent跟踪器实现SRV记录。
 

@@ -183,25 +183,26 @@ bittorrent-tracker.pacbell.net。在A 206.13.28.15
 
 在Python中，可以使用以下命令获取缓存跟踪器的地址：
 
-进口插座
+```
+import socket
 
-tlds = [“ com”，“ net”，“ org”]＃在此处添加更多内容。
+tlds = ["com", "net", "org"]  # add more here.
 
-名称，别名，ipaddrs = socket.gethostbyaddr（“ 69.107.0.14”）
-名称= name.split（'。'）
-名称和名称[0]不在tlds中：
-   name =“ bittorrent-tracker”。+“。”。join（名称）
-   尝试：
-     ip = socket.gethostbyname（名称）
-     打破
-   除了：
-     删除名称[0]
+name, aliases, ipaddrs = socket.gethostbyaddr("69.107.0.14")
+names = name.split('.')
+while names and names[0] not in tlds:
+   name = "bittorrent-tracker." + ".".join(names)
+   try:
+     ip = socket.gethostbyname(name)
+     break
+   except:
+     del names[0]
 
-打印“ response =”，ip
-
+print "response=", ip
+```
 这可能会产生类似的输出
 
-响应='151.164.129.4'
+response='151.164.129.4'
 
 上面的答案是虚构的，因为AT＆T目前不为BitTorrent跟踪器实现SRV记录。
 

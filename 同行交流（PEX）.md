@@ -14,35 +14,39 @@ PEX 通过扩展协议[[2]](http://www.bittorrent.org/beps/bep_0011.html#bep-10
 
 添加了在握手中协商的消息：
 
+```
 {
-  m：{
-    ut_pex：_<与实现有关的本地消息ID（正整数）>_，
+  m: {
+    ut_pex: <implementation-dependent local message ID (positive integer)>,
     ...
-  }，
+  },
   ...
 }
+```
 
 扩展消息本身由bittorrent /扩展消息标头和以下按本国编码的有效内容组成：
 
+```
 {
-  添加：_<以IPv4紧凑格式（字符串）的一个或多个联系人>已添加_ 
-  .f：_<可选，位标志，每个添加的IPv4对等方（字符串）1个字节>已_ 
-  添加6：_<一个或多个IPv6紧凑格式的联系人（字符串）>_，
-  add6.f：_<可选，位标志，每个添加的IPv6对等点（字符串）1个字节>_，
-  删除：_<一个或多个IPv6紧凑格式的联系人（字符串）>_，
-  drop6：_<一个或多个IPv6紧凑格式的联系人（字符串）>_
+  added: <one or more contacts in IPv4 compact format (string)>
+  added.f: <optional, bit-flags, 1 byte per added IPv4 peer (string)>
+  added6: <one or more contacts IPv6 compact format (string)>,
+  added6.f: <optional, bit-flags, 1 byte per added IPv6 peer (string)>,
+  dropped: <one or more contacts in IPv6 compact format (string)>,
+  dropped6: <one or more contacts in IPv6 compact format (string)>
 }
+```
 
 标志定义如下：
 
-> <colgroup><col width="5%"><col width="95%"></colgroup>
-> | 位 | 设置时 |
-> | --- | --- |
-> | 0x01 | 更喜欢加密，如扩展握手中的<tt class="docutils literal">e</tt>字段所示 |
-> | 0x02 | 仅种子/上传 |
-> | 0x04 | 支持uTP |
-> | 0x08 | 对等点表示扩展握手中支持<tt class="docutils literal">ut_holepunch</tt> |
-> | 0x10 | 传出连接，对等体可以访问 |
+
+ | Bit | 设置时机 |
+ | --- | --- |
+ | 0x01 | 更喜欢加密，如扩展握手中的<tt class="docutils literal">e</tt>字段所示 |
+ | 0x02 | 仅种子/上传 |
+ | 0x04 | 支持uTP |
+ | 0x08 | 对等点表示扩展握手中支持<tt class="docutils literal">ut_holepunch</tt> |
+ | 0x10 | 传出连接，对等体可以访问 |
 
 其他位保留供将来使用。如果实施者打算引入新的标志，则应提交修改此BEP的请求。
 

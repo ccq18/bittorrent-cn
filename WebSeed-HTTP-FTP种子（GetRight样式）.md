@@ -98,27 +98,28 @@ HTTP / FTP是“流”类型的协议，并且没有BitTorrent的块概念。对
 因此，给定“ YYnnn1Yn2Y”，除非1比2稀有得多，否则最好选择2号。
 
 伪代码逻辑：
-
-X = sqrt（Peers）-1;
-间隙= 0;
+```
+X = sqrt(Peers) - 1;
+Gap = 0;
 CurGap = 0;
-CurRarest = MaxPieces + 1;
-对于（i = 0; i <MaxPieces; i ++）{
-    如果（IDoNotHavePiece（i））{
-        差距++;
-        如果（PeerHasPiece（i））{
-            PieceRareness = NumberOfPeersWithThePiece（）;
-            如果（PieceRareness <（CurRarest-X）||
-                （PieceRareness <=（CurRarest + X）&& Gap> CurGap））{
+CurRarest = MaxPieces+1;
+for (i=0; i<MaxPieces; i++) {
+    if (IDoNotHavePiece(i)) {
+        Gap++;
+        if (PeerHasPiece(i)) {
+            PieceRareness = NumberOfPeersWithThePiece();
+            if (PieceRareness<(CurRarest-X) ||
+                (PieceRareness<=(CurRarest+X) && Gap>CurGap)) {
                 CurRarest = PieceRareness;
-                CurGap =差距；
+                CurGap = Gap;
                 NextPiece = i;
             }
         }
-    }其他{
-        间隙= 0;
+    } else {
+        Gap = 0;
     }
 }
+```
 
 #### 填补差距
 
@@ -130,24 +131,26 @@ CurRarest = MaxPieces + 1;
 
 伪代码逻辑：
 
-间隙= 0;
-片断= -1;
-CurGap = MaxPieces + 1;
-对于（i = 0; i <MaxPieces; i ++）{
-    如果（IDoNotHavePiece（i））{
-        差距++;
-        如果（PeerHasPiece（i））{
-            件=我;
+```
+Gap = 0;
+Piece = -1;
+CurGap = MaxPieces+1;
+for (i=0; i<MaxPieces; i++) {
+    if (IDoNotHavePiece(i)) {
+        Gap++;
+        if (PeerHasPiece(i)) {
+            Piece = i;
         }
-    }其他{----
-        如果（Gap <CurGap && Gap> 0 && Piece！=-1）{
-            CurGap =差距；
-            NextPiece =片段；
+    } else {----
+        if (Gap<CurGap && Gap>0 && Piece!=-1) {
+            CurGap = Gap;
+            NextPiece = Piece;
         }
-        间隙= 0;
-        片断= -1;
+        Gap = 0;
+        Piece = -1;
     }
 }
+```
 
 ### HTTP和FTP优化
 

@@ -17,7 +17,6 @@ http://www.bittorrent.org/beps/bep_0036.html
 
  
 
-<colgroup><col width="63%"><col width="20%"><col width="17%"></colgroup>
 | client | RSS 2.0 | Atom |
 | --- | --- | --- |
 | uTorrent | Yes | No |
