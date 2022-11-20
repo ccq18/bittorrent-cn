@@ -1,5 +1,5 @@
 # BitTorrent协议中文翻译（p2p协议,p2p网络，对等网络）  
- 
+ 原文：https://web.archive.org/web/20221105051211/https://www.bittorrent.org/beps/bep_0000.html
 [1.BitTorrent协议规范](https://github.com/ccq18/bittorrent-cn/blob/master/1.BitTorrent协议规范.md)  
 [2.DHT协议](https://github.com/ccq18/bittorrent-cn/blob/master/2.DHT协议.md)  
 [3.HTTP种子](https://github.com/ccq18/bittorrent-cn/blob/master/3.HTTP种子.md)  
