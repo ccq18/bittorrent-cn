@@ -20,9 +20,14 @@ BEP 代表 BitTorrent 增强提案。BEP 是向 BitTorrent 社区提供信息或
 - [bep_0016-超级种子](BEP草案/bep_0016-超级种子.md)
 - [bep_0017-HTTP种子](BEP草案/bep_0017-HTTP种子.md)
 - [bep_0019-WebSeed-HTTP-FTP种子（GetRight样式）](BEP草案/bep_0019-WebSeed-HTTP-FTP种子（GetRight样式）.md)
+- [bep_0036-Torrent-RSS源](BEP草案/bep_0036-Torrent-RSS源.md)
+- [bep_0044-在DHT中存储任意数据](BEP草案/bep_0044-在DHT中存储任意数据.md)
 
+
+  
 ## 延期 BEP
 下列 BEP 没有朝着标准化的方向发展，但尚未撤回。
 - [bep_0018-搜索引擎规范](延期的BEP/bep_0018-搜索引擎规范.md)
 - [bep_0022-BitTorrent本地跟踪器发现协议](延期的BEP/bep_0022-BitTorrent本地跟踪器发现协议.md)
+- [bep_0008-追踪者对等混淆](延期的BEP/bep_0008-追踪者对等混淆.md)
 
