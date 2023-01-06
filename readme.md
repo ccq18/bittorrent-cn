@@ -1,7 +1,7 @@
 # BitTorrent协议中文翻译（p2p协议,p2p网络，对等网络）  
 BEP 代表 BitTorrent 增强提案。BEP 是向 BitTorrent 社区提供信息或描述 BitTorrent 协议新功能的设计文档。BEP 应提供功能的简明技术规范和功能的基本原理。
-- [快速了解](https://github.com/ccq18/bittorrent-cn/blob/master/快速了解/快速了解.md)
-- [bep汇总](https://github.com/ccq18/bittorrent-cn/blob/master/快速了解/bep汇总.md)
+- [快速了解](快速了解.md)
+- [bep汇总](bep汇总.md)
 
 ## 最终的BEP
 - [bep_0003-BitTorrent协议规范](https://github.com/ccq18/bittorrent-cn/blob/master/最终的BEP/bep_0003-BitTorrent协议规范.md)
